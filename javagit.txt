@@ -1,0 +1,39 @@
+package com.example.testing.demo.Controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.example.employee.model.Employee;
+import com.example.testing.demo.Entities.Course;
+import com.example.testing.demo.services.CourseService;
+
+@RestController
+public class Controller {
+	
+	@Autowired
+	private CourseService courseService;
+	
+	@GetMapping("/home")
+	public String home() {
+		return "welcome to controller";
+	}
+	
+	@GetMapping("/courses")
+	public List<Course> getCourses()
+	{
+		return this.courseService.getCourse();
+	}
+	
+	@PutMapping("/id{/id}")
+	public Course updateEmployee(@RequestBody Course course,@PathVariable("id")int id)
+	{
+		this.courseService.updateCourse(course,id);
+	}
+	
+}
